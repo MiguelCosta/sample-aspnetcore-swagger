@@ -10,6 +10,10 @@ namespace SuperHeroGen.Controllers
     public class ValuesController : Controller
     {
         // GET api/values
+        /// <summary>
+        /// Get all values
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public IEnumerable<string> Get()
         {

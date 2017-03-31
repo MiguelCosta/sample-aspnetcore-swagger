@@ -8,6 +8,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Swashbuckle.AspNetCore.Swagger;
+using Microsoft.Extensions.PlatformAbstractions;
+using System.IO;
 
 namespace SuperHeroGen
 {
@@ -34,7 +36,20 @@ namespace SuperHeroGen
             // Register the Swagger generator, defining one or more Swagger documents
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Info { Title = "SuperHeroGen", Version = "v1" });
+                c.SwaggerDoc("v1", new Info
+                {
+                    Title = "SuperHero Name Generator API",
+                    Version = "v1",
+                    Description = "Rest API",
+                    TermsOfService = "None",
+                    Contact = new Contact { Name = "Miguel Costa", Email="miguelpintodacosta@gmail.com", Url= "https://github.com/MiguelCosta" },
+                    License = new License { Name = "Use under LICX", Url = "http://url.com"}
+                });
+
+                //Set the comments path for the swagger json and ui.
+                var basePath = PlatformServices.Default.Application.ApplicationBasePath;
+                var xmlPath = Path.Combine(basePath, "SuperHeroGen.xml");
+                c.IncludeXmlComments(xmlPath);
             });
         }
 
